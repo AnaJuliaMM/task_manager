@@ -9,6 +9,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import com.example.task_manager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +31,32 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            // Instância um objeto Tarefa
+            val task1 = Tasks("Recreio", "Misto quente")
+
+            // Cria um PopUp
+            val popUpTitle = AlertDialog.Builder(this)
+            popUpTitle.setTitle("Insira seu Título")
+
+            // Cria uma caixa de texto
+            val titleText = EditText(this)
+            popUpTitle.setView(titleText)
+
+            // Botões do PopUp
+            popUpTitle.setPositiveButton("Ok")  {
+                dialog, which ->
+                val title = titleText.text.toString()
+            }
+            popUpTitle.setNegativeButton("Cancelar") {
+                dialog, which ->
+                dialog.cancel()
+            }
+
+            //Exibir o popUp
+            popUpTitle.show()
+
+
+            Snackbar.make(view, task1.toString(), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
     }
